@@ -1,0 +1,17 @@
+name: water
+
+on:
+  watch:
+    types: [started]
+  schedule:
+    - cron: '30 1-9,11-13 * * *'
+
+jobs:
+  water:
+    name: Water notice
+    runs-on: ubuntu-latest
+    steps:
+      - name: Push message
+        run: curl "http://push.ijingniu.cn/send?key=$WATER_CHANNEL&head=正要喝水&body=轮到你了"
+        env:
+          WATER_CHANNEL: ${{ secrets.WATER_CHANNEL }}
